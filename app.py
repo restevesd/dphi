@@ -28,11 +28,16 @@ def form_example():
         input_df = pd.DataFrame([input_dict])
         
         model = load_model('best-model') 
-        output = predict_model(model,input_df,round = 0)
+        output = predict_model(model,input_df)
+        
+        score = output.Score * 100
+        print("Score:" + str(score[0]))
+        print("Label:" + str(output.Label[0]))
+        
         if str(output.Label[0]) == "1":
-            a = ("Loan Granted {}".format(output.Label[0]))
+            a = ("Loan Granted - Score: " + str(score[0])) +"%"
         else:
-            a = ("Loan NOT Granted {}".format(output.Label[0]))
+            a = ("Loan NOT Granted - Score: " + str(score[0])) +"%"
         
         return '''<H1>{}</H1> '''.format(a) 
 
